@@ -5,6 +5,8 @@ import LoginScreen from '../screens/LoginScreen'
 import VendedorHome from '../screens/VendedorHome'
 import CajaHome from '../screens/CajaHome'
 import AdminHome from '../screens/AdminHome'
+import VentasDiaScreen from '../screens/VentasDiaScreen'
+import NuevaVentaScreen from '../screens/NuevaVentaScreen'
 import { useAuth } from '../contexts/AuthContext'
 
 const Stack = createNativeStackNavigator()
@@ -12,7 +14,6 @@ const Stack = createNativeStackNavigator()
 export default function AppNavigator() {
   const { user } = useAuth()
 
-  // Si no ha iniciado sesión, mostrar Login
   if (!user) {
     return (
       <NavigationContainer>
@@ -23,16 +24,23 @@ export default function AppNavigator() {
     )
   }
 
-  // Redirigir según el rol
-  let HomeComponent = VendedorHome
-  if (user.rol === 'caja') HomeComponent = CajaHome
-  else if (user.rol === 'admin') HomeComponent = AdminHome
-
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeComponent} />
-      </Stack.Navigator>
+      {user.rol === 'vendedor' ? (
+        <Stack.Navigator>
+          <Stack.Screen name="Inicio" component={VendedorHome} />
+          <Stack.Screen name="VentasDia" component={VentasDiaScreen} />
+          <Stack.Screen name="NuevaVenta" component={NuevaVentaScreen} />
+        </Stack.Navigator>
+      ) : user.rol === 'caja' ? (
+        <Stack.Navigator>
+          <Stack.Screen name="Inicio" component={CajaHome} />
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator>
+          <Stack.Screen name="Inicio" component={AdminHome} />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   )
 }

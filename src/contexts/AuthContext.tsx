@@ -36,14 +36,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     load()
   }, [])
 
-  const login = async (correo: string, password: string) => {
+const login = async (correo: string, password: string) => {
+  try {
     const res = await api.post('/login', { correo, password })
+    console.log('✅ Login exitoso:', res.data)
     const { token, user } = res.data
     setToken(token)
     setUser(user)
     await AsyncStorage.setItem('token', token)
     await AsyncStorage.setItem('user', JSON.stringify(user))
+  } catch (error) {
+    console.error('❌ Error en login:', error)
+    throw error
   }
+}
+
 
   const logout = async () => {
     setToken(null)

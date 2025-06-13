@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 export default function VendedorHome() {
   const [opcionSeleccionada, setOpcionSeleccionada] = useState<number | null>(null)
+  const navigation = useNavigation()
+
+  const handleSeleccion = (i: number) => {
+    setOpcionSeleccionada(i)
+    if (i === 1) {
+      navigation.navigate('VentasDia' as never)
+    }
+  }
 
   const renderContenido = () => {
     switch (opcionSeleccionada) {
-      case 1:
-        return (
-          <View style={styles.contenido}>
-            <Text>Ventas del día</Text>
-            {/* Aquí pondrás la lista de ventas + botón de nueva venta */}
-          </View>
-        )
       case 2:
         return (
           <View style={styles.contenido}>
@@ -40,7 +42,7 @@ export default function VendedorHome() {
           <TouchableOpacity
             key={i}
             style={[styles.card, isSelected && styles.cardActiva]}
-            onPress={() => setOpcionSeleccionada(i)}
+            onPress={() => handleSeleccion(i)}
           >
             <Text style={[styles.cardTitulo, isSelected && styles.cardTituloActiva]}>
               {i}. {titulos[i - 1]}
