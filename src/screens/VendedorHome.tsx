@@ -10,17 +10,13 @@ export default function VendedorHome() {
     setOpcionSeleccionada(i)
     if (i === 1) {
       navigation.navigate('VentasDia' as never)
+    } else if (i === 2) {
+      navigation.navigate('ConsultaZona' as never)
     }
   }
 
   const renderContenido = () => {
     switch (opcionSeleccionada) {
-      case 2:
-        return (
-          <View style={styles.contenido}>
-            <Text>Consulta por zonas (próximamente)</Text>
-          </View>
-        )
       case 3:
         return (
           <View style={styles.contenido}>
@@ -48,7 +44,7 @@ export default function VendedorHome() {
               {i}. {titulos[i - 1]}
             </Text>
             <Text style={styles.cardTexto}>
-              Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+              Ventas.
             </Text>
           </TouchableOpacity>
         )

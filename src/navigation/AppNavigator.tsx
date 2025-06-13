@@ -7,6 +7,7 @@ import CajaHome from '../screens/CajaHome'
 import AdminHome from '../screens/AdminHome'
 import VentasDiaScreen from '../screens/VentasDiaScreen'
 import NuevaVentaScreen from '../screens/NuevaVentaScreen'
+import ConsultaZonaScreen from '../screens/ConsultaZonaScreen'
 import { useAuth } from '../contexts/AuthContext'
 
 const Stack = createNativeStackNavigator()
@@ -31,6 +32,7 @@ export default function AppNavigator() {
           <Stack.Screen name="Inicio" component={VendedorHome} />
           <Stack.Screen name="VentasDia" component={VentasDiaScreen} />
           <Stack.Screen name="NuevaVenta" component={NuevaVentaScreen} />
+          <Stack.Screen name="ConsultaZona" component={ConsultaZonaScreen} />
         </Stack.Navigator>
       ) : user.rol === 'caja' ? (
         <Stack.Navigator>
